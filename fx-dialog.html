@@ -1,0 +1,131 @@
+<foxui-element name="fx-dialog">
+
+    <fox-template>
+        <div id="fx-dialog-container" class="dialog-container">
+            <content></content>
+        </div>
+    </fox-template>
+
+    <script>
+		fox('fx-dialog', {
+			lifecycle : {
+				created : function() {
+
+				}
+			},
+			methods : {
+				show : function() {
+					var $container = $(this.$['fx-dialog-container']);
+					$container.css({
+						"margin-left" : -($container.width() / 2) + "px",
+						"margin-top" : -($container.height() / 2) + "px"
+					})
+					$(this).addClass("active");
+					$container.addClass("active");
+				},
+				hide : function(callback) {
+
+					var $container = $(this.$['fx-dialog-container']);
+					$container.bind("webkitAnimationEnd", function() {
+						callback && callback();
+					});
+					$(this).addClass("hide");
+				},
+				remove:function(callback){
+				    var self = this;
+				    this.hide(function(){
+				       $(self).remove(); 
+				       callback&&callback();
+				    });
+				}
+			}
+		});
+
+    </script>
+
+</foxui-element>
+
+<foxui-element name="fx-popup-dialog">
+
+    <fox-template>
+        <fx-dialog id="fx-dialog" class="effect-scaleIn">
+            <div class="fx-popup-container">
+                <div class="popup-head">
+                    <h3 class="popup-title">{param.title}</h3>
+                </div>
+                <div class="popup-body">
+                    <span>{param.content}</span>
+                </div>
+                <div class="popup-buttons row">
+                    <button rv-each-button="param.buttons" rv-on-click="button.click" class="button col button-positive" ng-class="button.type || 'button-default'">
+                        {button.text}
+                    </button>
+                </div>
+            </div>
+        </fx-dialog>
+    </fox-template>
+
+    <script>
+		fox.ui = fox.ui || {};
+		fox('fx-popup-dialog', {
+
+			lifecycle : {
+				created : function() {
+
+				}
+			},
+			methods : {
+				show : function(param) {
+					this.$['fx-dialog'].param = param;
+					this.$['fx-dialog'].show();
+				},
+				remove:function(){
+				    var self = this;
+				    this.$['fx-dialog'].remove(function(){
+				        $(self).remove();
+				    });
+				}
+			}
+		});
+
+		fox.ui.alert = function(title, content, callback) {
+			var alert = document.createElement("fx-popup-dialog");
+			$("body").append(alert);
+			alert.show({
+				title : title,
+				content : content,
+				buttons : [{
+					text : "OK",
+					click : function() {
+						alert.remove();
+						callback&&callback();
+					}
+				}]
+			});
+		}
+		
+		fox.ui.confirm = function(title,content,callback){
+		    var confirm = document.createElement("fx-popup-dialog");
+            $("body").append(confirm);
+            confirm.show({
+                title : title,
+                content : content,
+                buttons : [{
+                    text : "Cancel",
+                    click : function() {
+                        confirm.remove();
+                        callback&&callback();
+                    }
+                },{
+                    text : "OK",
+                    click : function() {
+                        confirm.remove();
+                        callback&&callback();
+                    }
+                }]
+            });
+		}
+
+    </script>
+
+</foxui-element>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        
+        <title>fx-dialog</title>
+        <link rel="stylesheet" href="fx-dialog.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+       <style>
+           *{
+               margin: 0;
+               padding: 0;
+           }
+       </style>
+      
+        <script src="fox-core/dist/foxui.js"></script>
+        
+        <link rel="import" href="fx-dialog.html">
+
+    </head>
+    <body style="position: absolute;left:0;right:0;top:0;bottom:0;background: #EF4E3A;">
+        
+        <script>
+           function alertFn(){
+               fox.ui.alert("title","content",function(){
+                  
+               });
+           }
+           
+           function confirmFn(){
+               fox.ui.confirm("title","content",function(){
+                  
+               });
+           }
+           
+        </script>
+        
+        
+        
+        <button onclick="alertFn()">alert</button>
+        
+        <button onclick="confirmFn()">confirm</button>
+        
+        
+    </body>
+</html>
