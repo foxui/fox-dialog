@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8"/>
         
-        <title>fx-dialog</title>
-        <link rel="stylesheet" href="fx-dialog.css">
+        <title>fox-dialog</title>
+        <link rel="stylesheet" href="fox-dialog.css">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         
        <style>
@@ -16,7 +16,7 @@
       
         <script src="fox-core/dist/foxui.js"></script>
         
-        <link rel="import" href="fx-dialog.html">
+        <link rel="import" href="fox-dialog.html">
 
     </head>
     <body style="position: absolute;left:0;right:0;top:0;bottom:0;background: #EF4E3A;">
@@ -34,6 +34,14 @@
                });
            }
            
+           function promptFn(){
+               fox.ui.prompt("title",function(res){
+                  console.info(res);
+               });
+           }
+           
+           
+           
         </script>
         
         
@@ -42,6 +50,6 @@
         
         <button onclick="confirmFn()">confirm</button>
         
-        
+        <button onclick="promptFn()">prompt</button>
     </body>
 </html>
