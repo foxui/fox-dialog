@@ -68,6 +68,7 @@ fox-popup-dialog .popup-title {
 	margin: 0;
 	padding: 0;
 	font-size: 15px;
+	
 }
 
 fox-popup-dialog .popup-sub-title {
@@ -75,6 +76,7 @@ fox-popup-dialog .popup-sub-title {
 	padding: 0;
 	font-weight: normal;
 	font-size: 11px;
+	
 }
 
 fox-popup-dialog .popup-body {

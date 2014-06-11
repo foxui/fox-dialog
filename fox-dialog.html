@@ -10,7 +10,7 @@
 		fox('fox-dialog', {
 			lifecycle : {
 				created : function() {
-
+					
 				}
 			},
 			methods : {
@@ -31,12 +31,12 @@
 					});
 					$(this).addClass("hide");
 				},
-				remove:function(callback){
-				    var self = this;
-				    this.hide(function(){
-				       $(self).remove(); 
-				       callback&&callback();
-				    });
+				remove : function(callback) {
+					var self = this;
+					this.hide(function() {
+						$(self).remove();
+						callback && callback();
+					});
 				}
 			}
 		});
@@ -55,7 +55,7 @@
                     <h5 class="popup-sub-title" rv-if="param.subtitle">{param.subtitle}</h5>
                 </div>
                 <div class="popup-body" rv-html="param.content">
-                    
+
                 </div>
                 <div class="popup-buttons row">
                     <button rv-each-button="param.buttons" rv-on-click="button.click" class="button col" rv-class="button.type">
@@ -77,83 +77,87 @@
 			},
 			methods : {
 				show : function(param) {
+					
 					this.$['fox-dialog'].param = param;
 					this.$['fox-dialog'].show();
 				},
-				remove:function(){
-				    var self = this;
-				    this.$['fox-dialog'].remove(function(){
-				        $(self).remove();
-				    });
+				remove : function() {
+					var self = this;
+					this.$['fox-dialog'].remove(function() {
+						$(self).remove();
+					});
 				}
 			}
 		});
 
 		fox.ui.alert = function(title, content, callback) {
-			var alert = document.createElement("fox-popup-dialog");
-			$("body").append(alert);
-			alert.show({
+			var alert1 = document.createElement("fox-popup-dialog");
+			$("body").append(alert1);
+			
+			setTimeout(function() {
+				alert1.show({
+					title : title,
+					// subtitle:"sub",
+					content : content,
+					buttons : [{
+						text : "OK",
+						type : "button-positive",
+						click : function() {
+							alert1.remove();
+							callback && callback();
+						}
+					}]
+				});
+				
+			}, 100);
+
+		}
+
+		fox.ui.confirm = function(title, content, callback) {
+			var confirm = document.createElement("fox-popup-dialog");
+			$("body").append(confirm);
+			confirm.show({
 				title : title,
-				// subtitle:"sub",
 				content : content,
 				buttons : [{
-					text : "OK",
-					type:"button-positive",
+					text : "Cancel",
+					type : "aaaaa",
 					click : function() {
-						alert.remove();
-						callback&&callback();
+						confirm.remove();
+						callback && callback();
+					}
+				}, {
+					text : "OK",
+					type : "button-positive",
+					click : function() {
+						confirm.remove();
+						callback && callback();
 					}
 				}]
 			});
-		}
-		
-		fox.ui.confirm = function(title,content,callback){
-		    var confirm = document.createElement("fox-popup-dialog");
-            $("body").append(confirm);
-            confirm.show({
-                title : title,
-                content : content,
-                buttons : [{
-                    text : "Cancel",
-                    type:"aaaaa",
-                    click : function() {
-                        confirm.remove();
-                        callback&&callback();
-                    }
-                },{
-                    text : "OK",
-                    type:"button-positive",
-                    click : function() {
-                        confirm.remove();
-                        callback&&callback();
-                    }
-                }]
-            });
-		},
-		
-		fox.ui.prompt = function(title,callback){
-		   
-		    var prompt = document.createElement("fox-popup-dialog");
-            $("body").append(prompt);
-            prompt.show({
-                title : title,
-                content : '<input id="fox-popup-text" class="fox-popup-text" type="text"/>',
-                buttons : [{
-                    text : "Cancel",
-                    type:"aaaaa",
-                    click : function() {
-                        callback&&callback();
-                        prompt.remove();
-                    }
-                },{
-                    text : "OK",
-                    type:"button-positive",
-                    click : function() {
-                        callback&&callback($("#fox-popup-text",prompt).val());
-                        prompt.remove();
-                    }
-                }]
-            });
+		}, fox.ui.prompt = function(title, callback) {
+
+			var prompt = document.createElement("fox-popup-dialog");
+			$("body").append(prompt);
+			prompt.show({
+				title : title,
+				content : '<input id="fox-popup-text" class="fox-popup-text" type="text"/>',
+				buttons : [{
+					text : "Cancel",
+					type : "aaaaa",
+					click : function() {
+						callback && callback();
+						prompt.remove();
+					}
+				}, {
+					text : "OK",
+					type : "button-positive",
+					click : function() {
+						callback && callback($("#fox-popup-text", prompt).val());
+						prompt.remove();
+					}
+				}]
+			});
 		}
 
     </script>
