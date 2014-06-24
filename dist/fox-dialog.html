@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="css/fox-dialog.css">
 <fox-element name="fox-dialog">
 
-    <fox-template>
+    <tpl>
         <div id="fox-dialog-container" class="dialog-container">
             <content></content>
         </div>
-    </fox-template>
+    </tpl>
 
     <script>
 		fox('fox-dialog', {
@@ -48,7 +48,7 @@
 
 <fox-element name="fox-popup-dialog">
 
-    <fox-template>
+    <tpl>
         <fox-dialog id="fox-dialog" class="effect-scaleIn">
             <div class="fox-popup-container">
                 <div class="popup-head">
@@ -65,7 +65,7 @@
                 </div>
             </div>
         </fox-dialog>
-    </fox-template>
+    </tpl>
 
     <script>
 		fox.ui = fox.ui || {};
@@ -73,12 +73,12 @@
 
 			lifecycle : {
 				created : function() {
-
+					
 				}
 			},
 			methods : {
 				show : function(param) {
-					this.$['fox-dialog'].param = param;
+					this.param = param;
 					this.$['fox-dialog'].show();
 				},
 				remove : function() {
