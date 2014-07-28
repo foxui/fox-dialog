@@ -111,7 +111,7 @@
 				
 			}, 100);
 
-		}
+		};
 
 		fox.ui.confirm = function(title, content, callback) {
 			var confirm = document.createElement("fox-popup-dialog");
@@ -124,18 +124,20 @@
 					type : "aaaaa",
 					click : function() {
 						confirm.remove();
-						callback && callback();
+						callback && callback(false);
 					}
 				}, {
 					text : "OK",
 					type : "button-positive",
 					click : function() {
 						confirm.remove();
-						callback && callback();
+						callback && callback(true);
 					}
 				}]
 			});
-		}, fox.ui.prompt = function(title, callback) {
+		};
+		
+		fox.ui.prompt = function(title, callback) {
 
 			var prompt = document.createElement("fox-popup-dialog");
 			$("body").append(prompt);
@@ -158,7 +160,7 @@
 					}
 				}]
 			});
-		}
+		};
 
     </script>
 
